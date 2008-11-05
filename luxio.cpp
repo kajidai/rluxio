@@ -8,12 +8,13 @@ typedef struct {
     Lux::IO::Btree *bt;
 }LuxIO;
 
-VALUE rb_luxiobtree_open(VALUE self, VALUE _filename)
+VALUE rb_luxiobtree_open(VALUE self, VALUE _filename, VALUE _flag)
 {
     LuxIO *ptr;
     Data_Get_Struct(self, LuxIO, ptr);
 
     char *filename = STR2CSTR(_filename);
+    int flag = NUM2INT(_flag);
 
     ptr->bt = new Lux::IO::Btree(Lux::IO::CLUSTER);
     if (ptr->bt->open(filename, Lux::DB_CREAT)){
@@ -84,10 +85,15 @@ extern "C" {
         VALUE klass;
         klass = rb_define_class("LuxIOBtree" ,rb_cObject);
         rb_define_singleton_method(klass, "new", reinterpret_cast<VALUE(*)(...)>(luxio_object_alloc), 0); 
-        rb_define_method(klass, "open", reinterpret_cast<VALUE(*)(...)>(rb_luxiobtree_open), 1);
+        rb_define_method(klass, "open", reinterpret_cast<VALUE(*)(...)>(rb_luxiobtree_open), 2);
         rb_define_method(klass, "put", reinterpret_cast<VALUE(*)(...)>(rb_luxiobtree_put), 2);
         rb_define_method(klass, "get", reinterpret_cast<VALUE(*)(...)>(rb_luxiobtree_get), 1);
         rb_define_method(klass, "del", reinterpret_cast<VALUE(*)(...)>(rb_luxiobtree_del), 1);
+
+        rb_define_const(klass, "LUX_DB_RDONLY", INT2NUM(Lux::DB_RDONLY));
+        rb_define_const(klass, "LUX_DB_RDWR", INT2NUM(Lux::DB_RDWR));
+        rb_define_const(klass, "LUX_DB_CREAT", INT2NUM(Lux::DB_CREAT));
+        rb_define_const(klass, "LUX_DB_TRUNC", INT2NUM(Lux::DB_TRUNC));
     }
 }
 
