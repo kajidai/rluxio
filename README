@@ -1,0 +1,12 @@
+= rluxio: ruby extension for Lux IO
+
+== INSTALL
+ $ ruby extconf.rb
+ $ make
+
+== SYNOPSIS
+ require 'luxio'
+ luxio = LuxIOBtree.new
+ luxio.open '/var/tmp/test', LuxIOBtree::LUX_DB_CREAT
+ luxio.put 'key', 'value'
+ luxio.get 'value'
