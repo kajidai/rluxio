@@ -17,7 +17,7 @@ VALUE rb_luxiobtree_open(VALUE self, VALUE _filename, VALUE _flag)
     int flag = NUM2INT(_flag);
 
     ptr->bt = new Lux::IO::Btree(Lux::IO::CLUSTER);
-    if (ptr->bt->open(filename, Lux::DB_CREAT)){
+    if (ptr->bt->open(filename, flag)){
         return Qtrue;
     }
     return Qnil;
@@ -71,6 +71,7 @@ static VALUE luxio_object_delete(LuxIO *ptr)
 {
     ptr->bt->close();
     delete ptr->bt;
+    return Qtrue;
 }
 
 static VALUE luxio_object_alloc(VALUE klass)
