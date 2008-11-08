@@ -8,5 +8,12 @@
  require 'luxio'
  luxio = LuxIOBtree.new
  luxio.open '/var/tmp/test', LuxIOBtree::LUX_DB_CREAT
+ 
  luxio.put 'key', 'value'
- luxio.get 'value'
+ # => true
+ luxio.get 'key'
+ # => "value"
+ luxio.del 'key'
+ # => true
+ luxio.get 'key'
+ # => nil
