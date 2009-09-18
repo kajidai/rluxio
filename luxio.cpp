@@ -91,10 +91,10 @@ extern "C" {
         rb_define_method(klass, "get", reinterpret_cast<VALUE(*)(...)>(rb_luxiobtree_get), 1);
         rb_define_method(klass, "del", reinterpret_cast<VALUE(*)(...)>(rb_luxiobtree_del), 1);
 
-        rb_define_const(klass, "LUX_DB_RDONLY", INT2NUM(Lux::DB_RDONLY));
-        rb_define_const(klass, "LUX_DB_RDWR", INT2NUM(Lux::DB_RDWR));
-        rb_define_const(klass, "LUX_DB_CREAT", INT2NUM(Lux::DB_CREAT));
-        rb_define_const(klass, "LUX_DB_TRUNC", INT2NUM(Lux::DB_TRUNC));
+        rb_define_const(klass, "LUX_DB_RDONLY", INT2NUM(Lux::IO::DB_RDONLY));
+        rb_define_const(klass, "LUX_DB_RDWR", INT2NUM(Lux::IO::DB_RDWR));
+        rb_define_const(klass, "LUX_DB_CREAT", INT2NUM(Lux::IO::DB_CREAT));
+        rb_define_const(klass, "LUX_DB_TRUNC", INT2NUM(Lux::IO::DB_TRUNC));
     }
 }
 
